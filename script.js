@@ -4,8 +4,10 @@ const newItem = d.getElementById('newItem');
 const addItemBtn = d.getElementById('addItemBtn');
 
 const addItemList = (item) => {
-	return `<input type="checkbox" cb id="${item}" name="${item}">
-               <label for="${item}">${item}</label><br>`;
+	return `<div row_${item}><input type="checkbox" cb id="${item}" name="${item}">
+               <label for="${item}">${item}</label>
+			   <button class="remove" onclick="removeItem('${item}')">entfernen</button>
+			   <br></div>`;
 };
 
 const myList = ['Zucker', 'Mehl', 'Eier']
@@ -41,15 +43,33 @@ addListeners();
 
 const addItem = () => {
 	const item = newItem.value;
-	if (item !== '') {
+		if (item.trim() === '') {
+			alert('Item hinzufügen bitte!');
+			return;
+		}
 		const el = addItemList(item);
-		const newDiv = document.createElement('div');
+		const newDiv = d.createElement('div');
 		newDiv.innerHTML = el;
 		main.appendChild(newDiv);
-		addListeners();
-		newItem.value = ''
-	}
+		console.log(newDiv)
+		const elNew = d.querySelector(`#${item}[cb]`);
+		elNew.addEventListener('change', changeRdo);
+		newItem.value = '';
 };
+
+const removeItem = (item) => {
+	// Implement your removal logic here
+	// For example, you might have an array of items and remove the selected item from the array
+	// Then, you can recreate the list of items without the removed one
+
+	// Update your UI accordingly
+
+	const elRem = d.querySelector(`[row_${item}]`);
+	console.log(elRem);
+	if (!elRem) return;
+	elRem.remove();
+
+}
 
 addItemBtn.addEventListener('click', addItem);
 
