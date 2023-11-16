@@ -46,7 +46,7 @@ const addItem = () => {
 			return;
 		}
 		const el = addItemList(item);
-		const newDiv = d.createElement('div');
+		const newDiv = d.createElement('added');
 		newDiv.innerHTML = el;
 		main.appendChild(newDiv);
 		const elNew = d.querySelector(`#${item}[cb]`);
@@ -58,6 +58,7 @@ const addItem = () => {
 const removeItem = (item) => {
 	const elRem = d.querySelector(`[row_${item}]`);
 	if (!elRem) return;
+	if (!elRem.parentElement.id) elRem.parentElement.remove();
 	elRem.remove();
 	newItem.focus();
 }
