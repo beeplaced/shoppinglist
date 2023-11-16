@@ -23,11 +23,9 @@ const changeCheckbox = (evt) => {
 	let pre = '';
 	let add = 'gekauft';
 
-	switch (checked) {
-		case false:
-			pre = 'bitte ';
-			add = 'kaufen';
-			break;
+	if (checked === false) {
+		pre = 'bitte ';
+		add = 'kaufen';
 	}
 
 	label.innerHTML = `${pre}${item} ${add}`;
@@ -51,7 +49,6 @@ const addItem = () => {
 		const newDiv = d.createElement('div');
 		newDiv.innerHTML = el;
 		main.appendChild(newDiv);
-		console.log(newDiv)
 		const elNew = d.querySelector(`#${item}[cb]`);
 		elNew.addEventListener('change', changeCheckbox);
 		newItem.value = '';
@@ -62,6 +59,7 @@ const removeItem = (item) => {
 	const elRem = d.querySelector(`[row_${item}]`);
 	if (!elRem) return;
 	elRem.remove();
+	newItem.focus();
 }
 
 addItemBtn.addEventListener('click', addItem);
